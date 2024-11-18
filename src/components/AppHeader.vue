@@ -1,4 +1,14 @@
-<script setup>
+<script>
+export default {
+  methods: {
+    goPage(name) {
+      console.log(55)
+      this.$router.push({
+        'name': name
+      })
+    }
+  }
+}
 
 </script>
 
@@ -16,11 +26,11 @@
           </div>
         </a>
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto ms-lg-auto mb-2 justify-content-center mb-md-0">
+        <ul class="nav col-12 col-lg-auto me-lg-auto ms-lg-auto mb-2 justify-content-center mb-md-0 gap-5">
           <li>
             <a
-                href="#"
                 class="nav-link px-2"
+                @click="goPage('main')"
                 :class="{
                   'text-secondary': $route.name == 'main',
                   'text-white': $route.name != 'main'
@@ -29,49 +39,35 @@
           </li>
           <li>
             <a
-                href="#"
                 class="nav-link px-2"
+                @click="goPage('main')"
                 :class="{
-                  'text-secondary': $route.name === '',
+                  'text-secondary': $route.name == '',
                   'text-white': $route.name != ''
                 }"
             >Ученики</a>
           </li>
           <li>
             <a
-                href="#"
                 class="nav-link px-2"
+                @click="goPage('main')"
                 :class="{
                   'text-secondary': $route.name == '',
                   'text-white': $route.name != ''
                 }"
             >Материалы</a>
           </li>
-          <li>
-            <a
-                href="#"
-                class="nav-link px-2"
-                :class="{
-                  'text-secondary': $route.name == '',
-                  'text-white': $route.name != ''
-                }"
-            >FAQs</a>
-          </li>
-          <li>
-            <a
-                href="#"
-                class="nav-link px-2"
-                :class="{
-                  'text-secondary': $route.name == '',
-                  'text-white': $route.name != ''
-                }"
-            >About</a>
-          </li>
         </ul>
 
         <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">Войти</button>
-          <button type="button" class="btn btn-secondary">Зарегистрироваться</button>
+          <button
+              type="button"
+              class="btn btn-outline-light me-2"
+              @click="goPage('login')">Войти</button>
+          <button
+              type="button"
+              class="btn btn-secondary"
+              @click="goPage('register')">Зарегистрироваться</button>
         </div>
       </div>
     </div>

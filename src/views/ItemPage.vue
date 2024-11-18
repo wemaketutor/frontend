@@ -10,6 +10,9 @@ export default {
       editedItemName: ''
     };
   },
+  mounted() {
+    this.fetchItems();
+  },
   methods: {
     async fetchItems() {
       await axios.get('http://localhost:8080/api/items', {
@@ -21,10 +24,7 @@ export default {
             console.error('There was an error!', error);
           });
     },
-    mounted() {
-      this.fetchItems();
-    },
-    async addItem() {
+    async addItem($evt) {
       await axios.post('http://localhost:8080/api/items', {
         name: this.newItem
       }, {
@@ -90,7 +90,7 @@ export default {
           v-model="newItem"
           placeholder="Add new item"
           class="form-control"/>
-      <button @click="addItem" class="btn btn-secondary w-10 text-nowrap">Add Item</button>
+      <button @click="addItem" class="btn btn-secondary w-10 text-nowrap">Добавить</button>
     </form>
   </div>
 </template>
