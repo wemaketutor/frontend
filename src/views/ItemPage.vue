@@ -24,7 +24,7 @@ export default {
             console.error('There was an error!', error);
           });
     },
-    async addItem($evt) {
+    async addItem() {
       await axios.post('http://localhost:8080/api/items', {
         name: this.newItem
       }, {
