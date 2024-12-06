@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     handleRegister() {
-      axios.post('http://localhost:8080/api/auth/register', this.user)
+      axios.post('/api/auth/register', this.user)
           .then(response => {
             this.message = response.data;
             this.successful = true;
@@ -45,7 +45,7 @@ export default {
             class="form-control"
             required
         />
-        <label for="email">Электронная почта:</label>
+        <label for="email">Электронная почта:{{successful}}</label>
         <input
             id="email"
             v-model="user.email"

@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     async handleLogin() {
-      await axios.post('http://localhost:8080/api/auth/login', this.user)
+      await axios.post('/api/auth/login', this.user)
           .then(response => {
             const token = response.data;
             localStorage.setItem('token', token);

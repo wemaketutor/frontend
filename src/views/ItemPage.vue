@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     async fetchItems() {
-      await axios.get('http://localhost:8080/api/items', {
+      await axios.get('/api/items', {
         headers: {Authorization: localStorage.getItem('token')}})
           .then(response => {
             this.items = response.data;
@@ -25,7 +25,7 @@ export default {
           });
     },
     async addItem() {
-      await axios.post('http://localhost:8080/api/items', {
+      await axios.post('/api/items', {
         name: this.newItem
       }, {
         headers: {
@@ -39,7 +39,7 @@ export default {
           });
     },
     async deleteItem(id) {
-      await axios.delete(`http://localhost:8080/api/items/${id}`, {headers: {Authorization: `${localStorage.getItem('token')}`}})
+      await axios.delete(`/api/items/${id}`, {headers: {Authorization: `${localStorage.getItem('token')}`}})
           .then(() => {
             this.items = this.items.filter(item => item.id !== id);
           })
@@ -55,7 +55,7 @@ export default {
       return this.editingItemId === id;
     },
     async updateItem(id) {
-      await axios.put(`http://localhost:8080/api/items/${id}`, {
+      await axios.put(`/api/items/${id}`, {
         name: this.editedItemName
       }, {headers: {Authorization: `${localStorage.getItem('token')}`}})
           .then(response => {
