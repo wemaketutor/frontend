@@ -9,5 +9,7 @@ createApp(App).use(router).use(VueCookies).mount('#app')
 
 
 import axios from 'axios'
+import 'dotenv/config'
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = process.env.BACKEND_URL;
+// axios.defaults.baseURL = 'http://localhost:8080';
