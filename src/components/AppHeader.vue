@@ -2,7 +2,6 @@
 export default {
   methods: {
     goPage(name) {
-      console.log(55)
       this.$router.push({
         'name': name
       })
@@ -19,7 +18,7 @@ export default {
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <div class="logo d-flex align-items-center">
             <img
-                src="/src/assets/logo.svg"
+                src="/src/assets/logo-white.svg"
                 class="logo-img"
             width="50px">
             <span class="fs-4">Tutoring assistant</span>

@@ -14,6 +14,11 @@ export default {
     this.fetchItems();
   },
   methods: {
+    goPage(name) {
+      this.$router.push({
+        'name': name
+      })
+    },
     async fetchItems() {
       await axios.get('/api/items', {
         headers: {Authorization: localStorage.getItem('token')}})
@@ -76,25 +81,132 @@ export default {
 
 <template>
   <div class="container">
-    <h1 class="text-center">Items</h1>
-    <ul>
-      <li v-for="item in items" :key="item.id">
-        <span v-if="!isEditing(item.id)">{{ item.name }}</span>
-        <input v-if="isEditing(item.id)" v-model="editedItemName" @keyup.enter="updateItem(item.id)"/>
-        <button v-if="!isEditing(item.id)" @click="startEditing(item.id, item.name)">Edit</button>
-        <button @click="deleteItem(item.id)">Delete</button>
+    <h2 class="text-center my-2">Ближайшие занятия</h2>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between">
+        <span>8:00-9:30</span>
+        <span>Матан</span>
+        <a
+            class="teacher"
+            @click="goPage('teacher')">Иванова</a>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>17:00-18:30</span>
+        <span>Физика</span>
+        <a
+            class="teacher"
+            @click="goPage('teacher')">Сосновских</a>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>19:00-21:30</span>
+        <span>Информатика</span>
+        <a
+            class="teacher"
+            @click="goPage('teacher')">Тимохин</a>
       </li>
     </ul>
-    <form class="d-flex gap-1 justify-between">
-      <input
-          v-model="newItem"
-          placeholder="Add new item"
-          class="form-control"/>
-      <button @click="addItem" class="btn btn-secondary w-10 text-nowrap">Добавить</button>
-    </form>
+    <h2 class="text-center my-2">Расписание</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Понедельник</th>
+        <th scope="col">Вторник</th>
+        <th scope="col">Среда</th>
+        <th scope="col">Четверг</th>
+        <th scope="col">Пятница</th>
+        <th scope="col">Суббота</th>
+        <th scope="col">Воскресенье</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th class="time" scope="row">8:00-9:30</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="time" scope="row">9:45-11:15</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="time" scope="row">11:30-13:00</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="time" scope="row">13:15-14:45</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="time" scope="row">15:00-16:30</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="time" scope="row">16:45-18:15</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="time" scope="row">18:30-20:00</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th class="time" scope="row">20:15-21:45</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <style scoped>
-
+.time {
+  border-right: 1px solid #dee2e6;
+}
 </style>
