@@ -81,7 +81,7 @@ export default {
 
 <template>
   <div class="container">
-    <h2 class="text-center my-2">Ближайшие занятия</h2>
+    <h2 class="text-center my-5">Ближайшие занятия</h2>
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between">
         <span>8:00-9:30</span>
@@ -105,7 +105,7 @@ export default {
             @click="goPage('teacher')">Тимохин</a>
       </li>
     </ul>
-    <h2 class="text-center my-2">Расписание</h2>
+    <h2 class="text-center my-5">Расписание</h2>
     <table class="table">
       <thead>
       <tr>

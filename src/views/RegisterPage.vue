@@ -45,7 +45,7 @@ export default {
             class="form-control"
             required
         />
-        <label for="email">Электронная почта:{{successful}}</label>
+        <label for="email">Электронная почта:</label>
         <input
             id="email"
             v-model="user.email"

@@ -39,20 +39,20 @@ export default {
           <li>
             <a
                 class="nav-link px-2"
-                @click="goPage('main')"
+                @click="goPage('students')"
                 :class="{
-                  'text-secondary': $route.name == '',
-                  'text-white': $route.name != ''
+                  'text-secondary': $route.name == 'students',
+                  'text-white': $route.name != 'students'
                 }"
             >Ученики</a>
           </li>
           <li>
             <a
                 class="nav-link px-2"
-                @click="goPage('main')"
+                @click="goPage('resources')"
                 :class="{
-                  'text-secondary': $route.name == '',
-                  'text-white': $route.name != ''
+                  'text-secondary': $route.name == 'resources',
+                  'text-white': $route.name != 'resources'
                 }"
             >Материалы</a>
           </li>
