@@ -25,7 +25,8 @@ export default {
                 'Authorization': `Bearer ${localStorage.accessToken}`
               }
             }).then(response => {
-              localStorage.setItem('role', response.data.role);
+              this.$cookies.set('role', response.data.user.role, '1d');
+              localStorage.setItem('role', response.data.user.role);
             })
             this.$router.push({'name': 'main'});
           })
