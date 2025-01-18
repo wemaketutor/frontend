@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       user: {
-        username: '',
+        email: '',
         password: ''
       },
       message: '',
@@ -13,14 +13,12 @@ export default {
     };
   },
   methods: {
-    async handleLogin() {
-      await axios.post('/api/auth/login', this.user)
+    async login() {
+      await axios.post('/login', this.user)
           .then(response => {
-            const token = response.data;
-            localStorage.setItem('token', token);
-            this.message = 'Login successful!';
+            this.message = response.data;
             this.successful = true;
-            this.$router.push('/');
+            this.$router.push('main');
           })
           .catch(error => {
             this.message = error.response.data;
@@ -34,12 +32,12 @@ export default {
 <template>
   <div class="container w-50">
     <h2 class="text-center mt-3">Вход</h2>
-    <form @submit.prevent="handleLogin">
+    <form @submit.prevent="login">
       <div class="form-group d-flex flex-column gap-2">
-        <label for="username">Имя пользователя:</label>
+        <label for="username">Почта:</label>
         <input
             id="username"
-            v-model="user.username"
+            v-model="user.email"
             type="text"
             class="form-control"
             required
