@@ -31,8 +31,8 @@ export default {
                 class="nav-link px-2"
                 @click="goPage('main')"
                 :class="{
-                  'text-secondary': $route.name == 'main',
-                  'text-white': $route.name != 'main'
+                  'text-secondary': $route.name === 'main',
+                  'text-white': $route.name !== 'main'
                 }"
             >Главная</a>
           </li>
@@ -41,8 +41,8 @@ export default {
                 class="nav-link px-2"
                 @click="goPage('students')"
                 :class="{
-                  'text-secondary': $route.name == 'students',
-                  'text-white': $route.name != 'students'
+                  'text-secondary': $route.name === 'students',
+                  'text-white': $route.name !== 'students'
                 }"
             >Ученики</a>
           </li>
@@ -51,8 +51,8 @@ export default {
                 class="nav-link px-2"
                 @click="goPage('resources')"
                 :class="{
-                  'text-secondary': $route.name == 'resources',
-                  'text-white': $route.name != 'resources'
+                  'text-secondary': $route.name === 'resources',
+                  'text-white': $route.name !== 'resources'
                 }"
             >Материалы</a>
           </li>

@@ -41,13 +41,13 @@ export default {
         <li class="nav-item mb-2">
           <a
               href="#"
-                @click="goPage('main')"
+                @click="goPage('timetable')"
               class="nav-link p-0 text-body-secondary">Расписание</a>
         </li>
         <li class="nav-item mb-2">
           <a
               href="#"
-                @click="goPage('main')"
+                @click="goPage('profile')"
               class="nav-link p-0 text-body-secondary">Профиль</a>
         </li>
       </ul>
@@ -58,13 +58,12 @@ export default {
       <ul class="nav flex-column">
         <li class="nav-item mb-2">
           <a
-              @click="goPage('main')"
+              @click="goPage('about')"
               class="nav-link p-0 text-body-secondary">История создания</a>
         </li>
         <li class="nav-item mb-2">
           <a
-              @click="goPage('main')"
-              href="#"
+              @click="goPage('qa')"
               class="nav-link p-0 text-body-secondary">Частые вопросы</a>
         </li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">email: info@tutoring-assistant.ru</a></li>

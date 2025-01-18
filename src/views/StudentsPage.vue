@@ -5,6 +5,10 @@
 <template>
 
   <div class="container my-5">
+    <h1 class="mb-4">Список учеников</h1>
+    <div class="mb-4">
+      <input type="text" class="form-control" id="searchInput" placeholder="Поиск книг...">
+    </div>
     <div class="d-flex flex-column gap-3">
       <div class="row fw-bold">
         <div class="col-3">Имя ученика</div>
