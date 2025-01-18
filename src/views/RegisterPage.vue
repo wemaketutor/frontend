@@ -19,7 +19,7 @@ export default {
           .then(response => {
             this.message = response.data;
             this.successful = true;
-            this.$router.push('main');
+            this.$router.push({'name': 'main'});
           })
           .catch(error => {
             this.message = error.response.data;

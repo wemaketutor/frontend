@@ -14,12 +14,20 @@ export default {
   },
   methods: {
     async login() {
-      console.log(689);
       await axios.post('/auth/login', this.user)
           .then(response => {
             this.message = response.data;
+            console.log(response.data)
+            localStorage.setItem('accessToken', response.data.accessToken);
             this.successful = true;
-            this.$router.push('main');
+            axios.get('/profile', {
+              headers: {
+                'Authorization': `Bearer ${localStorage.accessToken}`
+              }
+            }).then(response => {
+              localStorage.setItem('role', response.data.role);
+            })
+            this.$router.push({'name': 'main'});
           })
           .catch(error => {
             this.message = error.response.data;
