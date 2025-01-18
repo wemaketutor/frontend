@@ -14,14 +14,12 @@ export default {
     };
   },
   methods: {
-    handleRegister() {
-      axios.post('/api/auth/register', this.user)
+    async register() {
+      await axios.post('/registration', this.user)
           .then(response => {
             this.message = response.data;
             this.successful = true;
-            setTimeout(() => {
-              this.$router.push('/login');
-            }, 2000);
+            this.$router.push('main');
           })
           .catch(error => {
             this.message = error.response.data;
@@ -35,7 +33,7 @@ export default {
 <template>
   <div class="container w-50">
     <h2 class="text-center mt-3">Регистрация</h2>
-    <form @submit.prevent="handleRegister">
+    <form @submit.prevent="register">
       <div class="form-group d-flex flex-column gap-2">
         <label for="username">Имя пользователя:</label>
         <input
@@ -61,6 +59,15 @@ export default {
             class="form-control"
             required
         />
+        <label for="state" class="form-label">Роль:</label>
+        <select
+            v-model="user.role"
+            class="form-select"
+            id="state"
+            required>
+          <option value="student">Ученик</option>
+          <option value="teacher">Учитель</option>
+        </select>
         <button type="submit" class="btn btn-secondary">Зарегистрироваться</button>
       </div>
 

@@ -14,7 +14,8 @@ export default {
   },
   methods: {
     async login() {
-      await axios.post('/login', this.user)
+      console.log(689);
+      await axios.post('/auth/login', this.user)
           .then(response => {
             this.message = response.data;
             this.successful = true;
@@ -38,7 +39,7 @@ export default {
         <input
             id="username"
             v-model="user.email"
-            type="text"
+            type="email"
             class="form-control"
             required
         />
