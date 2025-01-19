@@ -1,5 +1,10 @@
 <script>
 export default {
+  data() {
+    return {
+      email: localStorage.getItem('email')
+    };
+  },
   methods: {
     goPage(name) {
       this.$router.push({
@@ -68,7 +73,7 @@ export default {
           </li>
         </ul>
 
-        <div class="text-end" v-if="!this.$cookies.get('email')">
+        <div class="text-end" v-if="!email">
           <button
               type="button"
               class="btn btn-outline-light me-2"
@@ -81,7 +86,7 @@ export default {
           </button>
         </div>
         <div v-else>
-          <span>{{ this.$cookies.get('email') }}</span>
+          <span>{{ email }}</span>
         </div>
       </div>
     </div>
