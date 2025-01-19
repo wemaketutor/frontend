@@ -26,7 +26,7 @@ export default {
               }
             }).then(response => {
               this.$cookies.set('role', response.data.user.role, '1d');
-              localStorage.setItem('role', response.data.user.role);
+              this.$cookies.set('email', response.data.user.email, '1d');
             })
             this.$router.push({'name': 'main'});
           })
