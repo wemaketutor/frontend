@@ -7,7 +7,8 @@ export default {
       user: {
         username: '',
         email: '',
-        password: ''
+        password: '',
+        role: '',
       },
       message: '',
       successful: false
@@ -65,15 +66,15 @@ export default {
             class="form-select"
             id="state"
             required>
-          <option value="student">Ученик</option>
-          <option value="teacher">Учитель</option>
+          <option value="ROLE_STUDENT">Ученик</option>
+          <option value="ROLE_TEACHER">Учитель</option>
         </select>
         <button type="submit" class="btn btn-secondary">Зарегистрироваться</button>
       </div>
 
 
       <div v-if="message" :class="['alert', successful ? 'alert-success' : 'alert-danger']">
-        {{ message }}
+        {{ message.message }}
       </div>
     </form>
   </div>

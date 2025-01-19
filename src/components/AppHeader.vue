@@ -20,7 +20,7 @@ export default {
             <img
                 src="/src/assets/logo-white.svg"
                 class="logo-img"
-            width="50px">
+                width="50px">
             <span class="fs-4">Tutoring assistant</span>
           </div>
         </a>
@@ -38,6 +38,7 @@ export default {
           </li>
           <li>
             <a
+                v-if="this.$cookies.get('role') === 'ROLE_TEACHER'"
                 class="nav-link px-2"
                 @click="goPage('students')"
                 :class="{
@@ -45,6 +46,15 @@ export default {
                   'text-white': $route.name !== 'students'
                 }"
             >Ученики</a>
+            <a
+                v-else
+                class="nav-link px-2"
+                @click="goPage('teachers')"
+                :class="{
+                  'text-secondary': $route.name === 'teachers',
+                  'text-white': $route.name !== 'teachers'
+                }"
+            >Учителя</a>
           </li>
           <li>
             <a
@@ -58,15 +68,20 @@ export default {
           </li>
         </ul>
 
-        <div class="text-end">
+        <div class="text-end" v-if="!this.$cookies.get('email')">
           <button
               type="button"
               class="btn btn-outline-light me-2"
-              @click="goPage('login')">Войти</button>
+              @click="goPage('login')">Войти
+          </button>
           <button
               type="button"
               class="btn btn-secondary"
-              @click="goPage('register')">Зарегистрироваться</button>
+              @click="goPage('register')">Зарегистрироваться
+          </button>
+        </div>
+        <div v-else>
+          <span>{{ this.$cookies.get('email') }}</span>
         </div>
       </div>
     </div>

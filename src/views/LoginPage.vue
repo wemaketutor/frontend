@@ -64,7 +64,7 @@ export default {
       </div>
 
       <div v-if="message" :class="['alert', successful ? 'alert-success' : 'alert-danger']">
-        {{ message }}
+        {{ message.message }}
       </div>
     </form>
   </div>
