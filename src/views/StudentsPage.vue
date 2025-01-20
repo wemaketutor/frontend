@@ -66,14 +66,16 @@ export default {
           <div class="col-2">Название</div>
           <div class="col-4">Описание</div>
           <div class="col-2">Гость</div>
-          <div class="col-2">Дата</div>
+          <div class="col-1">Начало</div>
+          <div class="col-1">Окончание</div>
         </div>
         <div class="row">
           <div class="col-2">{{ event.user.email }}</div>
           <div class="col-2">{{ event.name }}</div>
           <div class="col-4">{{ event.description }}</div>
           <div class="col-2">{{ event.folowed_user.email }}</div>
-          <div class="col-2">{{ event.date_created }}</div>
+          <div class="col-1">{{ event.date_created }}</div>
+          <div class="col-1">{{ event.duration }}</div>
         </div>
       </div>
     </div>

@@ -43,8 +43,12 @@ export default {
 </script>
 
 <template>
-  <div class="container mt-5">
+  <form class="container mt-5">
     <h2 class="mb-4">Профиль пользователя</h2>
+    <div class="mb-3">
+      <label for="email" class="form-label fw-bold">ID:</label>
+      <input type="email" id="email" class="form-control" :value="user.id" disabled>
+    </div>
     <div class="mb-3">
       <label for="avatar" class="form-label fw-bold">Аватар:</label>
       <img v-if="user.avatar" :src="user.avatar" alt="аватар" width="256px">
@@ -79,7 +83,7 @@ export default {
       <textarea id="additionalInfo" class="form-control" rows="3" v-model="user.extra_info"></textarea>
     </div>
     <button class="btn btn-secondary" @click="updateProfile">Обновить профиль</button>
-  </div>
+  </form>
 </template>
 
 <style scoped>

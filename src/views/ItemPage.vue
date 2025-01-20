@@ -4,14 +4,11 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      items: [],
-      newItem: '',
-      editingItemId: null,
-      editedItemName: ''
+      events: [],
+      eventToUpdate: {},
+      eventToCreate: {},
+      redacted: false,
     };
-  },
-  mounted() {
-    this.fetchItems();
   },
   methods: {
     goPage(name) {
@@ -19,194 +16,146 @@ export default {
         'name': name
       })
     },
-    async fetchItems() {
-      await axios.get('/api/items', {
-        headers: {Authorization: localStorage.getItem('token')}})
-          .then(response => {
-            this.items = response.data;
-          })
-          .catch(error => {
-            console.error('There was an error!', error);
-          });
+    eventUpdate(event) {
+      this.eventToUpdate = event;
+      this.redacted = true;
     },
-    async addItem() {
-      await axios.post('/api/items', {
-        name: this.newItem
-      }, {
+    async loadEvents() {
+      await axios.get('/myevents', {
         headers: {
-          Authorization: `${localStorage.getItem('token')}`}})
-          .then(response => {
-            this.items.push(response.data);
-            this.newItem = '';
-          })
-          .catch(error => {
-            console.error('There was an error adding the item!', error);
-          });
+          'Authorization': `Bearer ${localStorage.accessToken}`
+        }
+      }).then(response => {
+        this.events = response.data.ownerEvents;
+      })
     },
-    async deleteItem(id) {
-      await axios.delete(`/api/items/${id}`, {headers: {Authorization: `${localStorage.getItem('token')}`}})
-          .then(() => {
-            this.items = this.items.filter(item => item.id !== id);
-          })
-          .catch(error => {
-            console.error('There was an error deleting the item!', error);
-          });
+    async deleteEvent(eventId) {
+      await axios.delete('/delete/event/' + eventId, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.accessToken}`
+        }
+      }).then(response => {
+        this.loadEvents();
+      })
     },
-    startEditing(id, name) {
-      this.editingItemId = id;
-      this.editedItemName = name;
+    async createEvent() {
+      this.eventToCreate.date_created = new Date();
+      await axios.post('/addevent', this.eventToCreate, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.accessToken}`
+        }
+      })
     },
-    isEditing(id) {
-      return this.editingItemId === id;
+    async updateEvent() {
+      this.eventToUpdate.date_created = new Date();
+      await axios.put('/update/event', this.eventToUpdate, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.accessToken}`
+        }
+      })
     },
-    async updateItem(id) {
-      await axios.put(`/api/items/${id}`, {
-        name: this.editedItemName
-      }, {headers: {Authorization: `${localStorage.getItem('token')}`}})
-          .then(response => {
-            const index = this.items.findIndex(item => item.id === id);
-            if (index !== -1) {
-              this.items[index].name = response.data.name;
-            }
-            this.editingItemId = null;
-            this.editedItemName = '';
-          })
-          .catch(error => {
-            console.error('There was an error updating the item!', error);
-          });
-    }
-  }
+  },
+  mounted() {
+    this.loadEvents();
+  },
 };
 </script>
 
 <template>
   <div class="container">
-    <h2 class="text-center my-5">Ближайшие занятия</h2>
-    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between">
-        <span>8:00-9:30</span>
-        <span>Матан</span>
-        <a
-            class="teacher"
-            @click="goPage('teacher')">Иванова</a>
-      </li>
-      <li class="list-group-item d-flex justify-content-between">
-        <span>17:00-18:30</span>
-        <span>Физика</span>
-        <a
-            class="teacher"
-            @click="goPage('teacher')">Сосновских</a>
-      </li>
-      <li class="list-group-item d-flex justify-content-between">
-        <span>19:00-21:30</span>
-        <span>Информатика</span>
-        <a
-            class="teacher"
-            @click="goPage('teacher')">Тимохин</a>
-      </li>
-    </ul>
-    <h2 class="text-center my-5">Расписание</h2>
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">Понедельник</th>
-        <th scope="col">Вторник</th>
-        <th scope="col">Среда</th>
-        <th scope="col">Четверг</th>
-        <th scope="col">Пятница</th>
-        <th scope="col">Суббота</th>
-        <th scope="col">Воскресенье</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <th class="time" scope="row">8:00-9:30</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th class="time" scope="row">9:45-11:15</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th class="time" scope="row">11:30-13:00</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th class="time" scope="row">13:15-14:45</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th class="time" scope="row">15:00-16:30</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th class="time" scope="row">16:45-18:15</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th class="time" scope="row">18:30-20:00</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th class="time" scope="row">20:15-21:45</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      </tbody>
-    </table>
+    <h2 class="text-center my-5">Ближайшие события</h2>
+    <h5 class="text-center text-secondary my-5" v-if="events.length === 0">Создайте событие</h5>
+    <div v-for="event in events">
+      <div class="row fw-bold">
+        <div class="col-2">Организатор</div>
+        <div class="col-2">Название</div>
+        <div class="col-3">Описание</div>
+        <div class="col-2">Гость</div>
+        <div class="col-1">Начало</div>
+        <div class="col-1">Конец</div>
+      </div>
+      <div class="row">
+        <div class="col-2">{{ event.user.email }}</div>
+        <div class="col-2">{{ event.name }}</div>
+        <div class="col-3">{{ event.description }}</div>
+        <div class="col-2">{{ event.folowed_user.email }}</div>
+        <div class="col-1">{{ event.date }}</div>
+        <div class="col-1">{{ event.duration }}</div>
+        <div class="col-1">
+          <div class="text-danger" @click="deleteEvent(event.id)">Удалить</div>
+          <div class="text-success" @click="eventUpdate(event)">Обновить</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-center my-5">Создать новое событие</h2>
+    <form id="eventForm">
+      <div class="mb-3">
+        <label for="date" class="form-label">Начало</label>
+        <input type="datetime-local" class="form-control" id="date" name="date" required
+               v-model="eventToCreate.date">
+      </div>
+      <div class="mb-3">
+        <label for="duration" class="form-label">Окончание</label>
+        <input type="datetime-local" class="form-control" id="duration" name="date" required
+               v-model="eventToCreate.duration">
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Название</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Введите название события" required
+               v-model="eventToCreate.name">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Описание</label>
+        <input type="text" class="form-control" id="description" name="name" placeholder="Введите описание события"
+               required
+               v-model="eventToCreate.description">
+      </div>
+      <div class="mb-3">
+        <label for="gettingPersonId" class="form-label">ID получателя</label>
+        <input type="number" class="form-control" id="gettingPersonId" name="gettingPersonId"
+               placeholder="Введите ID пользователя" required
+               v-model="eventToCreate.getingPersonId">
+      </div>
+      <button class="btn btn-primary" @click="createEvent">Создать событие</button>
+    </form>
+
+    <h2 class="text-center my-5" :class="{
+      'd-none': !redacted,
+    }">Обновить событие</h2>
+    <form id="eventForm" :class="{
+      'd-none': !redacted,
+    }">
+      <div class="mb-3">
+        <label for="date" class="form-label">Начало</label>
+        <input type="datetime-local" class="form-control" id="date" name="date" required
+               v-model="eventToUpdate.date">
+      </div>
+      <div class="mb-3">
+        <label for="duration" class="form-label">Окончание</label>
+        <input type="datetime-local" class="form-control" id="duration" name="date" required
+               v-model="eventToUpdate.duration">
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Название</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Введите название события" required
+               v-model="eventToUpdate.name">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Описание</label>
+        <input type="text" class="form-control" id="description" name="name" placeholder="Введите название события"
+               required
+               v-model="eventToUpdate.description">
+      </div>
+      <div class="mb-3">
+        <label for="gettingPersonId" class="form-label">ID получателя</label>
+        <input type="number" class="form-control" id="gettingPersonId" name="gettingPersonId" required
+               v-model="eventToUpdate.getingPersonId">
+      </div>
+      <button class="btn btn-primary" @click="updateEvent">Сохранить событие</button>
+    </form>
   </div>
 </template>
 
 <style scoped>
-.time {
-  border-right: 1px solid #dee2e6;
-}
 </style>
